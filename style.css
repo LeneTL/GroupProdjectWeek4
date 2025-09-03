@@ -1,0 +1,21 @@
+
+
+
+
+/* Progress bars */
+    .bar-container {
+      width: 80%;
+      height: 20px;
+      background: #ddd;
+      margin: 10px auto;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+.bar {
+      height: 100%;
+      width: 100%;
+      transition: width 0.3s linear;
+    }
+     #waterBar {
+      background: #4da6ff;
+    }
