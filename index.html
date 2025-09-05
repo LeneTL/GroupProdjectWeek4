@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="style.css">
     <!-- 
     used time:
-    Lene: 5 min, = 3h 35m/4h
-    JP: = 3h 30m/4h
-    Lyka: = 1h 30m/4h
-    Janssen:  = 3h 30m/4h
+    Lene: 5 min, = 4h 0m/4h
+    JP: = 4h 0m/4h
+    Lyka: = 2h 00m/4h
+    Janssen:  = 4h 00m/4h
     -->
 
  
@@ -26,7 +26,7 @@
             HOW TO CARE FOR A PLANT
         </div>
          <div class="card card-b">
-            B
+            
         </div>
         <div class="card card-h">
             <!-- The table is here -->
@@ -36,53 +36,61 @@
             <img src="Images/winsowopen.png" class="windowSize" id="window" onclick="toggleWindow()">
         </div>
          <div class="card card-d">
-            D
+            
         </div>
          <div class="card card-e">
-            E
+            
         </div>
          <div class="card card-f">
              <!-- F -->
-             <img src="Images/plant.png" class="plantSize">
+             <img src="Images/plant.png" class="plantSize" id="plant">
         </div>
         <div class="card card-g">
-            G
+            
         </div>
         <div class="card card-i">
-            I
+            
         </div>
         <div class="card card-j">
-            J
+            
         </div>
         <div class="card card-k">
             <!-- K -->
             <img src="Images/wateringcan.png" onclick="waterPlant()">
         </div>
         <div class="card card-l">
-            L
-        </div>
-            <div class="card card-m">
-            M
             
         </div>
-        <div class="card card-n">
-            N
+        <div class="card card-m">
             <div class="icon-Container">
-              <img src="Images/sun.png" alt="Sol ikon">
-              <img src="Images/dead.png" alt="Død ikon">
-              <img src="Images/water.png" alt="Vann ikon">
+                <div class="Icon">
+                    <img src="Images/sun.png" alt="Sol ikon">
+                </div>
+                <div class="Icon">
+                    <img src="Images/dead.png" alt="Død ikon">
+                </div>
+                <div class="Icon">
+                    <img src="Images/water.png" alt="Vann ikon">
+                </div>
+                <div class="Icon">
+                    <img src="Images/heart.png" alt="hjerte ikon">
+                </div>
             </div>
+         </div>
+        </div>
+        <div class="card card-n">
+            
+    <div class="icon-Container">
+        
         </div>
          <div class="card card-o">
-            O
+            
         </div>
             <div class="card card-p">
-            P
+            
         </div>
         </div>
 
-<button onclick="startSuntimer()">TEST SUNTIMER</button>
-<button onclick="toggleWindow()">TEST Toggle</button>
 
 
 
@@ -98,9 +106,10 @@
 
 
 
-
-  <p id="gameOverMessage">Your plant fucking died WTf 🌱💀</p>
-  <button onclick="restartGame()">Restart</button>
+ <div id="gameOverScreen">
+    <p id="gameOverMessage">Your plant died 💀</p>
+    <button onclick="restartGame()">Restart</button>
+  </div>
 </div>
 
 

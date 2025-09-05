@@ -8,97 +8,58 @@ let sunSeconds = 0;
 let waterTimer = null;
 let waterLevel = 100;
 //Dead
-let plantDead = false
- 
-
-
-//update plant image based on state bla bla
-function updatePlantImage(state) {
-      const plant = document.getElementById("plant");
-      if (state === "healthy") plant.src = "healthyplant.jpg";
-      if (state === "dead") plant.src = "deadplant.jpg";
-    }
+let plantDead = false;
 
 
 
-
-
-
-
-
-//Water functions
-function startWaterTimer(interval) {
+//--------------------------------------------------------------------Water functions
+function startWaterTimer(interval){
       clearInterval(waterTimer);
-      waterTimer = setInterval(() => {
-        waterLevel -= 5;
+      waterTimer = setInterval(()=>{
+        waterLevel -=20;
+        if(waterLevel<0) waterLevel=0;
         updateWaterBar(waterLevel);
-
-        const waterIcon = document.getElementById("waterIcon");
-        if (waterLevel <= 0) {
-            deadPlant();
-        //   deadPlant("water");
-        } else if (waterLevel < 30) {
-          waterIcon.classList.add("active");
-          updatePlantImage("thirsty");
-        } else {
-          waterIcon.classList.remove("active");
-          updatePlantImage("healthy");
-        }
-      }, interval * 1000);
+        showIcons();
+        
+        if(waterLevel<=0) deadPlant("water");
+        showIcons();
+      }, interval*1000);
     }
+function updateWaterBar(percent){ document.getElementById("waterBar").style.width = percent+"%"; }
+function waterPlant(){ waterLevel=100; updateWaterBar(waterLevel); showIcons(); }
+
+
 function updateWaterBar(percent) {
       document.getElementById("waterBar").style.width = Math.max(percent, 0) + "%";
     }
 
 
-//vannet jævkla planten
+//-------------------------------------------------------------vannet jævkla planten
 
 function waterPlant(){
 waterLevel = 100;
 updateWaterBar(waterLevel);
-document.getElementById("waterIcon").classList.remove("active");
-
-
-
+showIcons(); //? vet ikke om den må være her men setter'n inn
 }
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-//Window functions
+//---------------------------------------------------------------Window functions
 function toggleWindow(){               // Funksjon som åpner eller lukker vinduet
  windowOpen = !windowOpen;             // Setter windowOpen til motsatt verdi    
 if (windowOpen) {  
- document.getElementById('window').src = "Images/winsowopen.png";         
+ document.getElementById('window').src = "Images/winsowopen.png";   //endrer img til åpen      
  console.log("Vinduet er åpent")       // Hvis vinduet er åpent
 } else {
- document.getElementById('window').src = "Images/windowclose.png";
+ document.getElementById('window').src = "Images/windowclose.png";  //endrer img til stengt
  console.log ("Vinduet er stengt")     // Hvis vinduet er stengt
 // console.log(windowOpen)             //Viser i konsollen hva windowOpen er
  }
  windowState();
+ showIcons();
 } 
-
-
-
-
-
-
-
-
-
 
 function windowState(){
   if (windowOpen){                  // if Window is open
@@ -112,21 +73,11 @@ function windowState(){
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-//Sun functions
+//-----------------------------------------------------------Sun functions
 function stopSunTimer(){
     clearInterval(sunTimer);
     sunSeconds = 0; 
+    showIcons();
 }
 
 function startSuntimer(){
@@ -141,60 +92,63 @@ function sunwatch(){
 }
 
 function needForSun(){                      //need for sun
- if(sunSeconds <= 10 && sunSeconds > 30){   //if the timer reaches 10  and it's less than 30
-    plantDead = false;                      //just to make dead certain the plant is alive, might not be needed
-  //show img of sun need                    //then it'll prompt the need for sun IMG
- }else if (sunSeconds < 30){                //or if the timer reaches 30 
-    deadPlant();                            //then it'll die
+if(sunSeconds > 30){                      //or if the timer reaches 30 
+    deadPlant(); 
+    showIcons();                           //then it'll die
+}else if(sunSeconds <= 10){                     //if the timer reaches 10 
+    showIcons();                   //then it'll prompt the need for sun IMG
+ }
 }
+
+//--------------------------------------------------Icon functions
+
+function showIcons(){
+  let icons = document.getElementsByClassName("Icon");
+  for (let i = 0; i < icons.length; i++) { // (i is a counter) the loop goes through all the images(divs) 
+    icons[i].style.display = "none"; // and hides them
+  }
+    if (plantDead == true){
+        icons[1].style.display = "block"; //plant is dead
+    }else if(waterLevel < 30){
+        icons[2].style.display = "block"; //plant thirsty
+    }else if(sunSeconds > 10){
+        icons[0].style.display = "block"; //plant need sun
+    }else if(waterLevel >= 30 && windowOpen == true){
+        icons[3].style.display = "block"; //plant is happy
+    }//else none of the images show
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//Dead functions
+//--------------------------------------------------Dead functions
 
 function deadPlant(){
   clearInterval(waterTimer);
   clearInterval(sunTimer);
-  updatePlantImage("dead");
+  // updatePlantImage("dead");
+  document.getElementById('plant').src = "Images/deadplant.png";
+  plantDead = true;
+  showIcons();
 
 //gameoverscreen 
- document.getElementById("gameOverMessage").textContent = 
- `Your plant died from lack of ${reason}`
- document.getElementById("gameOverScreen").style.display = "flex";
+document.getElementById("gameOverMessage").textContent=`Your plant died bro`;
+document.getElementById("gameOverScreen").style.display="flex";
  }
 
- //restart
- function restartGame() {
-   waterLevel = 100;
-   document.getElementById("deadIcon").classList.remove("active");
-   updatePlantImage("healthy");
-  updateWaterBar(waterLevel);
-   updateSunBar(100);
-
-   // Hide game over screen
-   document.getElementById("gameOverScreen").style.display = "none";
-
-  // Restart timers
-   windowState();
- }
+ //-------------------------------------------------restart
+ function restartGame(){
+      waterLevel=100;
+      sunLevel=100;
+      // updatePlantImage("healthy");
+      document.getElementById('plant').src = "Images/plant.png";
+      updateWaterBar(waterLevel);
+      windowState();
+      plantDead = false;
+      showIcons();
+      document.getElementById("gameOverScreen").style.display="none";
+    }
 
 
 
-//start game  
- windowState();
-updateWaterBar(waterLevel);
+//--------------------------------------------------------start game  
+windowState();
+updateWaterBar(waterLevel);  
+showIcons();
