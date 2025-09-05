@@ -142,6 +142,7 @@ document.getElementById("gameOverScreen").style.display="flex";
       updateWaterBar(waterLevel);
       windowState();
       plantDead = false;
+      sunSeconds = 0;
       showIcons();
       document.getElementById("gameOverScreen").style.display="none";
     }
